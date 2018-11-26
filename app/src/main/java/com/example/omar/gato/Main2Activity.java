@@ -13,6 +13,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private TextView txtUno, jugadorDos, jugadorUno;
     //char ficha[] { 'X', 'O', 'X', 'O'};
     private String ficha[]={"X","O"};
+
     //@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +49,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         jugadorUno.setText(jug1);
         String jug2 = getIntent().getExtras().getString("two");
         jugadorDos.setText(jug2);
-
-
-
-
+        
     }
 
     public void logicGame(){
