@@ -7,12 +7,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
 
     private Button Cero, Uno, Dos, Tres,Cuatro, Cinco, Seis, Siete, Ocho, Ajustes;
-    private TextView txtUno, jugadorDos, jugadorUno;
+    private TextView txtUno, jugadorDos, jugadorUno, mensaje;
     //char ficha[] { 'X', 'O', 'X', 'O'};
     private String ficha[]={"X","O"};
+    public static final String EXTRA_MESSAGE = "mx.unam.fitsingsoft20191.echoonaws.MESSAGE";
 
     //@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +45,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         jugadorUno = (TextView) findViewById(R.id.J1);
         jugadorDos = (TextView) findViewById(R.id.J2);
         txtUno = (TextView) findViewById(R.id.Uno);
+        mensaje = (TextView) findViewById(R.id.msg);
         Cero.setOnClickListener(this);
         Uno.setOnClickListener(this);
         Dos.setOnClickListener(this);
@@ -49,12 +61,51 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         jugadorUno.setText(jug1);
         String jug2 = getIntent().getExtras().getString("two");
         jugadorDos.setText(jug2);
-        
+
+
+
+
     }
+
+    public  void aws(){
+        final String message = txtUno.getText().toString();
+
+        //Intent intent = getIntent();
+        //final String message = intent.getStringExtra(Main2Activity.EXTRA_MESSAGE);
+
+        //Código para hacer la conexión http al web service de Echo
+        //String url = "https://4vuka3k687.execute-api.us-east-1.amazonaws.com/prueba/{proxy+}";
+
+        //Código para hacer la conexión http al web service de Codifica moviendo 2
+        //String url = "https://d62i2kvnva.execute-api.us-east-1.amazonaws.com/prueba/demo";
+
+        String url = "https://1gaoqtbpn5.execute-api.us-east-1.amazonaws.com/prueba/demo";
+
+        //instancia de la cola por default de solicitudes web
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        //Clase definida en línea al instanciar StringRequest con un solo método getParams()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                getPostResponseListener(), getPostErrorListener()) {
+            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+                //En este mapa se colocan todos los pares de valores de la "forma web" a postear
+                Map<String, String> params = new HashMap<>();
+                params.put("mensaje",message);
+                //params.put("parametro", "valor");
+                return params;
+            };
+
+        };
+
+        //Se envía el StringRequest a la cola
+        queue.add(stringRequest);
+    }
+
 
     public void logicGame(){
         if (Cero.getText()=="X" && Uno.getText() == "X" && Dos.getText()=="X"){
             txtUno.setText("Player 1 WINS");
+            aws();
         }
         else if(Cero.getText()=="O" && Uno.getText()=="O" && Dos.getText()=="O"){
             txtUno.setText("Player 2 WINS");
@@ -101,6 +152,8 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }
         else if(Dos.getText()=="O" && Cuatro.getText()=="O" && Seis.getText()=="O"){
             txtUno.setText("Player 2 WINS");
+        }else{
+            txtUno.setText("EMPATE");
         }
     }
 
@@ -303,5 +356,26 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+    private Response.Listener<String> getPostResponseListener(){
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //TextView textView = findViewById(R.id.msg);
+                mensaje.setText(response);
+            }
+        };
+    }
+    private Response.ErrorListener getPostErrorListener(){
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+               // TextView textView = findViewById(R.id.msg);
+                mensaje.setText("Error de respuesta");
+            }
+        };
+    }
 }
+
+
 
