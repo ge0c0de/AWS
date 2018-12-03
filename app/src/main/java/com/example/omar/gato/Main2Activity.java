@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.os.Handler;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,7 +24,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private TextView txtUno, jugadorDos, jugadorUno, mensaje;
     //char ficha[] { 'X', 'O', 'X', 'O'};
     private String ficha[]={"X","O"};
-    public static final String EXTRA_MESSAGE = "mx.unam.fitsingsoft20191.echoonaws.MESSAGE";
+    public static final String EXTRA_MESSAGE = "";
 
     //@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         jugadorUno = (TextView) findViewById(R.id.J1);
         jugadorDos = (TextView) findViewById(R.id.J2);
         txtUno = (TextView) findViewById(R.id.Uno);
-        mensaje = (TextView) findViewById(R.id.msg);
+        //mensaje = (TextView) findViewById(R.id.msg);
         Cero.setOnClickListener(this);
         Uno.setOnClickListener(this);
         Dos.setOnClickListener(this);
@@ -68,16 +69,49 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     }
 
     public  void aws(){
-        final String message = txtUno.getText().toString();
+        final String message="Jugador_UNO";
 
-        //Intent intent = getIntent();
-        //final String message = intent.getStringExtra(Main2Activity.EXTRA_MESSAGE);
+        String url = "https://1gaoqtbpn5.execute-api.us-east-1.amazonaws.com/prueba/demo";
+        RequestQueue queue = Volley.newRequestQueue(this);
 
-        //Código para hacer la conexión http al web service de Echo
-        //String url = "https://4vuka3k687.execute-api.us-east-1.amazonaws.com/prueba/{proxy+}";
+        //Clase definida en línea al instanciar StringRequest con un solo método getParams()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                getPostResponseListener(), getPostErrorListener()) {
+            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+                //En este mapa se colocan todos los pares de valores de la "forma web" a postear
+                Map<String, String> params = new HashMap<>();
+                params.put("",message);
+                //params.put("parametro", "valor");
+                return params;
+            };
 
-        //Código para hacer la conexión http al web service de Codifica moviendo 2
-        //String url = "https://d62i2kvnva.execute-api.us-east-1.amazonaws.com/prueba/demo";
+        };
+
+        //Se envía el StringRequest a la cola
+        queue.add(stringRequest);
+    }
+
+    public void limpiaTablero(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Cero.setText("");
+                Uno.setText("");
+                Dos.setText("");
+                Tres.setText("");
+                Cuatro.setText("");
+                Cinco.setText("");
+                Seis.setText("");
+                Siete.setText("");
+                Ocho.setText("");
+            }
+        }, 2000); // Millisecond 1000 = 1 sec
+
+    }
+
+
+    public  void aws2(){
+        final String message="Jugador_DOS";
 
         String url = "https://1gaoqtbpn5.execute-api.us-east-1.amazonaws.com/prueba/demo";
 
@@ -90,7 +124,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
                 //En este mapa se colocan todos los pares de valores de la "forma web" a postear
                 Map<String, String> params = new HashMap<>();
-                params.put("mensaje",message);
+                params.put("",message);
                 //params.put("parametro", "valor");
                 return params;
             };
@@ -104,56 +138,89 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
     public void logicGame(){
         if (Cero.getText()=="X" && Uno.getText() == "X" && Dos.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
             aws();
+            limpiaTablero();
+
+
         }
         else if(Cero.getText()=="O" && Uno.getText()=="O" && Dos.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Cero.getText()=="X" && Tres.getText()=="X" && Seis.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
         else if(Cero.getText()=="O" && Tres.getText()=="O" && Seis.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Cero.getText()=="X" && Cuatro.getText()=="X" && Ocho.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
         else if(Cero.getText()=="O" && Cuatro.getText()=="O" && Ocho.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Uno.getText()=="X" && Cuatro.getText()=="X" && Siete.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
         else if(Uno.getText()=="O" && Cuatro.getText()=="O" && Siete.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Dos.getText()=="X" && Cinco.getText()=="X" && Ocho.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
         else if(Dos.getText()=="O" && Cinco.getText()=="O" && Ocho.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Tres.getText()=="X" && Cuatro.getText()=="X" && Cinco.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
         else if(Tres.getText()=="O" && Cuatro.getText()=="O" && Cinco.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Seis.getText()=="X" && Siete.getText()=="X" && Ocho.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
 
         else if(Seis.getText()=="O" && Siete.getText()=="O" && Ocho.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }
         else if(Dos.getText()=="X" && Cuatro.getText()=="X" && Seis.getText()=="X"){
-            txtUno.setText("Player 1 WINS");
+            txtUno.setText("Cargando");
+            aws();
+            limpiaTablero();
         }
         else if(Dos.getText()=="O" && Cuatro.getText()=="O" && Seis.getText()=="O"){
-            txtUno.setText("Player 2 WINS");
+            txtUno.setText("Cargando");
+            aws2();
+            limpiaTablero();
         }else{
-            txtUno.setText("EMPATE");
+            txtUno.setText("No hay ganador");
         }
     }
 
@@ -362,7 +429,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onResponse(String response) {
                 //TextView textView = findViewById(R.id.msg);
-                mensaje.setText(response);
+                txtUno.setText(response);
             }
         };
     }
@@ -371,7 +438,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onErrorResponse(VolleyError error) {
                // TextView textView = findViewById(R.id.msg);
-                mensaje.setText("Error de respuesta");
+                txtUno.setText("Red no disponible");
             }
         };
     }

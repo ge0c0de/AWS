@@ -124,11 +124,13 @@
 
     <TextView
         android:id="@+id/Uno"
-        android:layout_width="188dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="66dp"
-        android:textSize="30sp"
+        android:layout_width="255dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="49dp"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/J1" />
 
@@ -142,17 +144,5 @@
         android:background="@drawable/ic_info_black_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonSeis" />
-
-    <TextView
-        android:id="@+id/msg"
-        android:layout_width="129dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="63dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonSiete" />
 
 </android.support.constraint.ConstraintLayout>
