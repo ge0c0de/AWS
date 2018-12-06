@@ -7,14 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.os.Handler;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +22,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private TextView txtUno, jugadorDos, jugadorUno, mensaje;
     //char ficha[] { 'X', 'O', 'X', 'O'};
     private String ficha[]={"X","O"};
-    public static final String EXTRA_MESSAGE = "";
+    //public static final String EXTRA_MESSAGE = "";
 
     //@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         jugadorUno = (TextView) findViewById(R.id.J1);
         jugadorDos = (TextView) findViewById(R.id.J2);
         txtUno = (TextView) findViewById(R.id.Uno);
-        //mensaje = (TextView) findViewById(R.id.msg);
         Cero.setOnClickListener(this);
         Uno.setOnClickListener(this);
         Dos.setOnClickListener(this);
@@ -63,22 +60,20 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         String jug2 = getIntent().getExtras().getString("two");
         jugadorDos.setText(jug2);
 
-
-
-
     }
 
-    public  void aws(){
-        final String message="Jugador_UNO";
+    //Retrofit como cliente http
 
+
+    //Volley como cliente http
+    public  void aws(){
+        final String message = (String) jugadorUno.getText();
         String url = "https://1gaoqtbpn5.execute-api.us-east-1.amazonaws.com/prueba/demo";
         RequestQueue queue = Volley.newRequestQueue(this);
-
         //Clase definida en línea al instanciar StringRequest con un solo método getParams()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 getPostResponseListener(), getPostErrorListener()) {
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                //En este mapa se colocan todos los pares de valores de la "forma web" a postear
                 Map<String, String> params = new HashMap<>();
                 params.put("",message);
                 //params.put("parametro", "valor");
@@ -96,25 +91,31 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             @Override
             public void run() {
                 Cero.setText("");
+                Cero.setEnabled(true);
                 Uno.setText("");
+                Uno.setEnabled(true);
                 Dos.setText("");
+                Dos.setEnabled(true);
                 Tres.setText("");
+                Tres.setEnabled(true);
                 Cuatro.setText("");
+                Cuatro.setEnabled(true);
                 Cinco.setText("");
+                Cinco.setEnabled(true);
                 Seis.setText("");
+                Seis.setEnabled(true);
                 Siete.setText("");
+                Siete.setEnabled(true);
                 Ocho.setText("");
+                Ocho.setEnabled(true);
             }
         }, 2000); // Millisecond 1000 = 1 sec
 
     }
 
-
     public  void aws2(){
-        final String message="Jugador_DOS";
-
+        final String message = (String) jugadorDos.getText();
         String url = "https://1gaoqtbpn5.execute-api.us-east-1.amazonaws.com/prueba/demo";
-
         //instancia de la cola por default de solicitudes web
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -122,11 +123,10 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 getPostResponseListener(), getPostErrorListener()) {
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                //En este mapa se colocan todos los pares de valores de la "forma web" a postear
-                Map<String, String> params = new HashMap<>();
-                params.put("",message);
-                //params.put("parametro", "valor");
-                return params;
+
+                Map<String, String> datos = new HashMap<>();
+                datos.put("",message);
+                return datos;
             };
 
         };
@@ -240,6 +240,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Cero.setText(l);
+                        Cero.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -248,6 +249,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Cero.setText(m);
+                        Cero.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -264,6 +266,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Uno.setText(l);
+                        Uno.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -272,6 +275,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Uno.setText(m);
+                        Uno.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -283,6 +287,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Dos.setText(l);
+                        Dos.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         //--;
@@ -290,6 +295,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Dos.setText(m);
+                        Dos.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                     }
@@ -301,6 +307,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Tres.setText(l);
+                        Tres.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -309,6 +316,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Tres.setText(m);
+                        Tres.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -320,6 +328,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Cuatro.setText(l);
+                        Cuatro.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -328,6 +337,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Cuatro.setText(m);
+                        Cuatro.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -339,6 +349,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Cinco.setText(l);
+                        Cinco.setEnabled(false);
                        // cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -347,6 +358,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Cinco.setText(m);
+                        Cinco.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -359,6 +371,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Seis.setText(l);
+                        Seis.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -367,6 +380,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Seis.setText(m);
+                        Seis.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -378,6 +392,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Siete.setText(l);
+                        Siete.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -386,6 +401,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Siete.setText(m);
+                        Siete.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
@@ -398,6 +414,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     if (cont % 2 == 0) {
                         String l = ficha[0];
                         Ocho.setText(l);
+                        Ocho.setEnabled(false);
                         //cont--;
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
@@ -406,6 +423,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     }else {
                         String m = ficha[1];
                         Ocho.setText(m);
+                        Ocho.setEnabled(false);
                         String tam = Integer.toString(cont);
                         txtUno.setText(tam);
                         logicGame();
