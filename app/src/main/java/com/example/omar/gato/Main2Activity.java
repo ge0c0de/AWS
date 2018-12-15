@@ -55,6 +55,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         Ocho.setOnClickListener(this);
         Ajustes.setOnClickListener(this);
 
+
         String jug1 = getIntent().getExtras().getString("Parametros");
         jugadorUno.setText(jug1);
         String jug2 = getIntent().getExtras().getString("two");
