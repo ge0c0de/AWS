@@ -23,5 +23,5 @@ Vertsión 1.0: Juego funcional
 Versión 0.9: Implementación de API Gateway
 
 01/12/18
-Versión 0.8: Empiza implemetación de función lambda
+Versión 0.8: Empieza implemetación de función lambda previamente desarrollada y HTTP Requests dentro de Android studio 
 
