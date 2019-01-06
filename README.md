@@ -3,7 +3,7 @@
 
 ### Alumno: Viveros Campos Omar Alfonso
 
-### Proyecto realizado para la clase de Temas Selectos de Ingeniería de Software de la UNA
+### Proyecto realizado para la clase de Temas Selectos de Ingeniería de Software de la UNAM
 
 Consiste en una Aplicación movil para Android en la cual 2 jugadores pueden interactuar con el clásico juego de Gato
 
