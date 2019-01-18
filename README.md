@@ -7,6 +7,9 @@
 
 Consiste en una Aplicación movil para Android en la cual 2 jugadores pueden interactuar con el clásico juego de Gato
 
+17/01/19
+Versión 2.0.1 : Cambio de fuente en txtviews
+
 04/01/19
 Versión 2.0: Nuevo diseño de tablero y fichas de juego
 
